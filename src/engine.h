@@ -1,4 +1,2 @@
-
-
-void setup();
-void update();
+// void Setup();
+// void Update();

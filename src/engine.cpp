@@ -1,9 +1,9 @@
 #include "engine.h"
 
-void Setup(){
+// void Setup(){
 
-}
+// }
 
-void Update(){
+// void Update(){
 
-}
+// }

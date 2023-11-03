@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 
 class Player {
+public:
     Player();
     vec3 position;
     SDL_Rect player_image;
