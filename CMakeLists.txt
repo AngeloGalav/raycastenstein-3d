@@ -7,6 +7,7 @@ project(raycast-engine)
 file(GLOB_RECURSE SRC_FILES src/*.c*)
 
 find_package(SDL2 REQUIRED)
+find_package(SDL2_image REQUIRED)
 
 add_executable(raycast-engine ${SRC_FILES})
 target_include_directories(raycast-engine
@@ -16,5 +17,6 @@ target_include_directories(raycast-engine
 
 target_link_libraries(raycast-engine
  PUBLIC
+ SDL2_image
  ${SDL2_LIBRARIES}
  pthread)

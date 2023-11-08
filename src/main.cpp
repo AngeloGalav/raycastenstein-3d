@@ -1,80 +1,112 @@
-
-// SDL2 Hello, World!
-// This should display a white screen for 2 seconds
-// compile with: clang++ main.cpp -o hello_sdl2 -lSDL2
-// run with: ./hello_sdl2
 #include <SDL2/SDL.h>
-#include <stdio.h>
-#include "player.h"
+#include <SDL2/SDL_image.h>
+#include <SDL2/SDL_timer.h>
+#include "engine.h"
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define WIDTH 640
+#define HEIGHT 480
 
-Player* player;
-SDL_Window* window = NULL;
-SDL_Surface* screenSurface = NULL;
-SDL_Renderer *renderer;
-
-void Start();
-void Update();
-
-int main(int argc, char* args[]) {
-
-  if (SDL_Init(SDL_INIT_VIDEO) < 0) {
-    fprintf(stderr, "could not initialize sdl2: %s\n", SDL_GetError());
-    return 1;
+int main(int argc, char *argv[])
+{
+  if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+      printf("error initializing SDL: %s\n", SDL_GetError());
   }
 
-  window = SDL_CreateWindow(
-			    "raycast-engine",
-			    SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-			    SCREEN_WIDTH, SCREEN_HEIGHT,
-			    SDL_WINDOW_SHOWN
-			    );
+  SDL_Window* window = SDL_CreateWindow("raycast-engine",
+                                      SDL_WINDOWPOS_CENTERED,
+                                      SDL_WINDOWPOS_CENTERED,
+                                      WIDTH, HEIGHT, 0);
 
-  if (window == NULL) {
-    fprintf(stderr, "could not create window: %s\n", SDL_GetError());
-    return 1;
-  }
+  SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
-  screenSurface = SDL_GetWindowSurface(window);
-  renderer = SDL_CreateRenderer(window, -1, 0);
+  // loads image to our graphics hardware memory.
+  SDL_Texture* tex = tex_from_image("../res/simple_square.png", renderer);
+  // SDL_RenderCopy(renderer, tex, NULL, &rect);
 
-  // Engine primitives
-  Start();
 
-  SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-  for (int i = 0; i < SCREEN_WIDTH; ++i)
-      SDL_RenderDrawPoint(renderer, i, i);
-  SDL_RenderPresent(renderer);
+  // setups texture with the right size
+  SDL_Rect rect;
+  SDL_QueryTexture(tex, NULL, NULL, &rect.w, &rect.h);
 
-  bool keep_window_open = true;
-  while(keep_window_open)
-  {
-    Update();
-    SDL_Event e;
-    while(SDL_PollEvent(&e) > 0)
-    {
-      switch(e.type)
-      {
+  // adjust height and width of our image box.
+  rect.w /= 6;
+  rect.h /= 6;
+
+  // sets initial position of object
+  rect.x = (WIDTH - rect.w) / 2;
+  rect.y = (HEIGHT - rect.h) / 2;
+
+  // controls animation loop
+  int close = 0;
+  int speed = 300;
+
+  // animation loop
+  while (!close) {
+      SDL_Event event;
+
+      // Events management
+      while (SDL_PollEvent(&event)) {
+          switch (event.type) {
+
           case SDL_QUIT:
-              keep_window_open = false;
+              // handling of close button
+              close = 1;
               break;
+
+          case SDL_KEYDOWN:
+              // keyboard API for key pressed
+              switch (event.key.keysym.scancode) {
+              case SDL_SCANCODE_W:
+              case SDL_SCANCODE_UP:
+                  rect.y -= speed / 30;
+                  break;
+              case SDL_SCANCODE_A:
+              case SDL_SCANCODE_LEFT:
+                  rect.x -= speed / 30;
+                  break;
+              case SDL_SCANCODE_S:
+              case SDL_SCANCODE_DOWN:
+                  rect.y += speed / 30;
+                  break;
+              case SDL_SCANCODE_D:
+              case SDL_SCANCODE_RIGHT:
+                  rect.x += speed / 30;
+                  break;
+              default:
+                  break;
+              }
+          }
       }
-      SDL_UpdateWindowSurface(window);
-    }
+
+    // right boundary
+    if (rect.x + rect.w > WIDTH)
+        rect.x = WIDTH - rect.w;
+
+    // left boundary
+    if (rect.x < 0)
+        rect.x = 0;
+
+    // bottom boundary
+    if (rect.y + rect.h > HEIGHT)
+        rect.y = HEIGHT - rect.h;
+
+    // upper boundary
+    if (rect.y < 0)
+        rect.y = 0;
+
+    // clears the screen
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+    SDL_RenderClear(renderer);
+
+    SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+    SDL_RenderFillRect(renderer, &rect);
+    // triggers the double buffers
+    // for multiple rendering (updates backbuffer)
+    SDL_RenderPresent(renderer);
+    // calculates to 60 fps
+    SDL_Delay(1000 / 60);
   }
 
-  SDL_DestroyWindow(window);
-  SDL_Quit();
+  QuitApp(&window, &renderer);
   return 0;
-}
-
-void Start(){
-  player = new Player();
-  player->setPlayerImage(100, 100, 100, 100);
-}
-
-void Update(){
-  player->renderPlayer(screenSurface);
 }

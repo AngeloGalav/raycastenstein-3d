@@ -9,4 +9,6 @@ public:
     SDL_Color player_color;
     void setPlayerImage(int x, int y, int w, int h);
     void renderPlayer(SDL_Surface* screenSurface);
+    void renderPlayer(SDL_Renderer * renderer);
+    void move();
 };
