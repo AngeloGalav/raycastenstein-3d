@@ -1,14 +1,49 @@
 #include "input_handler.h"
 
-bool KEYS[322];  // 322 is the number of SDLK_DOWN events
+extern double posX, posY;  // x and y start position
+extern double dirX, dirY;     // initial direction vector
+extern double planeX, planeY; // the 2d raycaster version of camera plane
+double moveSpeed = 0.1 * 5.0; // the constant value is in squares/second
+double rotSpeed = 0.1 * 3.0;  // the constant value is in radians/second
 
-
-void SetupInputHandler(){
-    for(int i = 0; i < 322; i++) { // init them all to false
-        KEYS[i] = false;
+void inputHandler(SDL_Event event)
+{
+    // keyboard API for key pressed
+    switch (event.key.keysym.scancode)
+    {
+    case SDL_SCANCODE_W:
+    case SDL_SCANCODE_UP:
+        posX += dirX * moveSpeed;
+        posY += dirY * moveSpeed;
+        break;
+    case SDL_SCANCODE_A:
+    case SDL_SCANCODE_LEFT:
+    { // both camera direction and camera plane must be rotated
+        double oldDirX = dirX;
+        dirX = dirX * cos(rotSpeed) - dirY * sin(rotSpeed);
+        dirY = oldDirX * sin(rotSpeed) + dirY * cos(rotSpeed);
+        double oldPlaneX = planeX;
+        planeX = planeX * cos(rotSpeed) - planeY * sin(rotSpeed);
+        planeY = oldPlaneX * sin(rotSpeed) + planeY * cos(rotSpeed);
+        break;
     }
-}
-
-void KeyboardHandler(){
-
+    case SDL_SCANCODE_S:
+    case SDL_SCANCODE_DOWN:
+        posX -= dirX * moveSpeed;
+        posY -= dirY * moveSpeed;
+        break;
+    case SDL_SCANCODE_D:
+    case SDL_SCANCODE_RIGHT:
+    {
+        double oldDirX = dirX;
+        dirX = dirX * cos(-rotSpeed) - dirY * sin(-rotSpeed);
+        dirY = oldDirX * sin(-rotSpeed) + dirY * cos(-rotSpeed);
+        double oldPlaneX = planeX;
+        planeX = planeX * cos(-rotSpeed) - planeY * sin(-rotSpeed);
+        planeY = oldPlaneX * sin(-rotSpeed) + planeY * cos(-rotSpeed);
+        break;
+    }
+    default:
+        break;
+    }
 }

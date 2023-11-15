@@ -1,11 +1,5 @@
 #include "raycaster.h"
 
-void drawWallLine(double distance, int x);
-
-// TODO: change the value so that it stays in a single header
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
-
 double dirX = -1, dirY = 0; // initial direction vector
 double planeX = 0, planeY = 0.66; //the 2d raycaster version of camera plane
 extern double posX, posY;
