@@ -24,6 +24,8 @@ int main(int argc, char *argv[])
     {
         printf("error initializing SDL: %s\n", SDL_GetError());
     }
+    //disable vsync for research purposes
+    SDL_GL_SetSwapInterval(0);
 
     SDL_Window *window = SDL_CreateWindow("raycast-engine",
                                           SDL_WINDOWPOS_CENTERED,
@@ -45,10 +47,6 @@ int main(int argc, char *argv[])
     {
         SDL_Event event;
         current_ticks = clock();
-
-        // speed modifiers
-        // double moveSpeed = 0.1 * 5.0; // the constant value is in squares/second
-        // double rotSpeed = 0.1 * 3.0;  // the constant value is in radians/second
 
         // Events management
         while (SDL_PollEvent(&event))
@@ -79,10 +77,8 @@ int main(int argc, char *argv[])
 
         SDL_RenderPresent(renderer);
 
-        frameTime = getFrametime(current_ticks);
-
-        // calculates to 60 fps
         SDL_Delay(1000 / 60);
+        frameTime = getFrametime(current_ticks);
     }
 
     QuitApp(&window, &renderer);

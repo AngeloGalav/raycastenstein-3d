@@ -38,7 +38,6 @@ void QuitApp(SDL_Window **window, SDL_Renderer **renderer)
 
 double getFrametime(clock_t current_ticks)
 {
-    clock_t delta_ticks;
-    delta_ticks = clock() - current_ticks; // the time, in ms, that took to render the scene
-    return delta_ticks/1000;
+    clock_t delta_ticks = clock() - current_ticks; // the time, in ms, that took to render the scene
+    return delta_ticks/10000.0f;
 }

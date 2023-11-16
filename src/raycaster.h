@@ -3,5 +3,5 @@
 #include "definitions.h"
 
 void drawWallLine(double distance, int x);
-void raycaster(int w);
+void raycaster(int x);
 void render();
