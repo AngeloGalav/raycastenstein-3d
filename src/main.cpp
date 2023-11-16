@@ -3,6 +3,7 @@
 #include <SDL2/SDL_timer.h>
 #include <chrono>
 #include <iostream>
+#include "map.h"
 #include "engine.h"
 #include "raycaster.h"
 #include "input_handler.h"
@@ -35,7 +36,7 @@ int main(int argc, char *argv[])
     // SDL_Texture *tex = tex_from_image("res/simple_square.png", renderer);
     // SDL_RenderCopy(renderer, tex, NULL, &rect);
     // SDL_QueryTexture(tex, NULL, NULL, &rect.w, &rect.h);
-    
+
     int program_closed = 0;
     int speed = 30;
 
@@ -72,13 +73,14 @@ int main(int argc, char *argv[])
         // renders background
         SDL_SetRenderDrawColor(renderer, 105, 105, 105, 255);
         SDL_RenderDrawRect(renderer, &background);
-        SDL_RenderFillRect( renderer, &background);
-
+        SDL_RenderFillRect(renderer, &background);
         render();
+        renderMapOnScreen(renderer);
 
         SDL_RenderPresent(renderer);
 
         frameTime = getFrametime(current_ticks);
+
         // calculates to 60 fps
         SDL_Delay(1000 / 60);
     }

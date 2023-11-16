@@ -10,5 +10,5 @@ public:
     void setPlayerImage(int x, int y, int w, int h);
     void renderPlayer(SDL_Surface* screenSurface);
     void renderPlayer(SDL_Renderer * renderer);
-    void move();
+    void move(double x, double y);
 };

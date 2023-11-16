@@ -1,5 +1,7 @@
 #include "map.h"
 
+extern double posX, posY;
+
 int worldMap[mapWidth][mapHeight] =
 {
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
@@ -27,3 +29,27 @@ int worldMap[mapWidth][mapHeight] =
   {1,4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
   {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 };
+
+
+void renderMapOnScreen(SDL_Renderer *renderer) {
+  // draws map background
+  SDL_Rect rect = {.x = 0, .y = 0, .w = mapHeight*4, .h = mapWidth*4};
+  SDL_SetRenderDrawColor(renderer, 60, 60, 60, 255);
+  SDL_RenderFillRect(renderer, &rect);
+
+  // draw map elements
+  SDL_RenderSetScale(renderer, 4, 4);
+  SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+  for (int i=0; i<mapHeight; i++) {
+    for (int j=0; j<mapWidth; j++){
+      if (worldMap[j][i] > 0) SDL_RenderDrawPoint(renderer, j, i);
+    }
+  }
+
+  // draw player
+  SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
+  SDL_RenderDrawPoint(renderer, int(posX), int(posY));
+
+  // revert scale
+  SDL_RenderSetScale(renderer, 1, 1);
+}

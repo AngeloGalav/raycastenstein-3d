@@ -14,31 +14,7 @@ void Player::renderPlayer(SDL_Surface* screenSurface) {
         SDL_MapRGB(screenSurface->format, player_color.r, player_color.g, player_color.b));
 }
 
-void Player::move() {
-    SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_KEYDOWN) {
-            printf("AAAAAAAAH nippon (meaning key is pressed)\n");
-            switch(event.key.keysym.scancode) {
-                case SDL_SCANCODE_LEFT:
-                    player_image.x -= 10;
-                    break;
-                case SDL_SCANCODE_RIGHT:
-                    player_image.x +=10;
-                    break;
-                case SDL_SCANCODE_UP:
-                    player_image.y -= 10;
-                    break;
-                case SDL_SCANCODE_DOWN:
-                    player_image.y += 10;
-                    break;
-                default:
-                    break;
-            }
-
-        }
-    }
-}
+void Player::move(double x, double y) { }
 
 void Player::renderPlayer(SDL_Renderer * renderer) {
     SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
