@@ -15,6 +15,7 @@ extern double planeX, planeY; // the 2d raycaster version of camera plane
 clock_t current_ticks;
 double frameTime = 0;
 SDL_Renderer *renderer;
+SDL_Rect background = {.x = 0, .y = SCREEN_HEIGHT/2, .w = SCREEN_WIDTH, .h = SCREEN_HEIGHT};
 
 int main(int argc, char *argv[])
 {
@@ -67,6 +68,11 @@ int main(int argc, char *argv[])
         // clears the screen
         SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
         SDL_RenderClear(renderer);
+
+        // renders background
+        SDL_SetRenderDrawColor(renderer, 105, 105, 105, 255);
+        SDL_RenderDrawRect(renderer, &background);
+        SDL_RenderFillRect( renderer, &background);
 
         render();
 
