@@ -10,7 +10,7 @@ Software renderer that functions in a similar way as the renderer used in Wolfen
 
 ## Compilation
 To compile the project, simply use the provided `CMakeLists.txt`.
-In this way, you can compile the project using these commands:ù
+In this way, you can compile the project using these commands:
 
 ```
 mkdir build
