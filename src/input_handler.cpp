@@ -3,20 +3,21 @@
 extern double posX, posY;  // x and y start position
 extern double dirX, dirY;     // initial direction vector
 extern double planeX, planeY; // the 2d raycaster version of camera plane
-extern double frameTime;
+extern float frameTime;
 double moveSpeed; // the constant value is in squares/second
 double rotSpeed; // the constant value is in radians/second
 
 void inputHandler(SDL_Event event)
 {
-
-    moveSpeed = frameTime * 2.0; // the constant value is in squares/second
-    rotSpeed = frameTime * 0.5;
+    moveSpeed = 1; // the constant value is in squares/second
+    rotSpeed = 0.2;
     // keyboard API for key pressed
     switch (event.key.keysym.scancode)
     {
     case SDL_SCANCODE_W:
     case SDL_SCANCODE_UP:
+        printf("frametime %f\n", frameTime);
+
         posX += dirX * moveSpeed;
         posY += dirY * moveSpeed;
         break;
