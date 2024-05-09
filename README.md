@@ -7,6 +7,8 @@ Software renderer that functions in a similar way as the renderer used in Wolfen
 
 ## Screenshots
 ![](res/screenshot.png)
+![](res/screenshot2.png)
+
 
 ## Compilation
 To compile the project, simply use the provided `CMakeLists.txt`.
