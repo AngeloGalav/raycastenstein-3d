@@ -6,6 +6,7 @@
 #include "map.h"
 #include "engine.h"
 #include "raycaster.h"
+#include "texture.h"
 #include "input_handler.h"
 #include "definitions.h"
 
@@ -14,7 +15,7 @@ extern double dirX, dirY;     // initial direction vector
 extern double planeX, planeY; // the 2d raycaster version of camera plane
 
 clock_t current_ticks;
-double frameTime = 0;
+float frameTime = 0;
 SDL_Renderer *renderer;
 SDL_Rect background = {.x = 0, .y = SCREEN_HEIGHT/2, .w = SCREEN_WIDTH, .h = SCREEN_HEIGHT};
 
@@ -41,6 +42,7 @@ int main(int argc, char *argv[])
 
     int program_closed = 0;
     int speed = 30;
+    initTexture();
 
     // game loop
     while (!program_closed)

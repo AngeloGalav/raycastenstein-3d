@@ -5,6 +5,9 @@ set(CMAKE_CXX_REQUIRED ON)
 project(raycast-engine)
 
 file(GLOB_RECURSE SRC_FILES src/*.c*)
+file(GLOB_RECURSE ASSETS res/*)
+file(COPY ${ASSETS} DESTINATION ${CMAKE_BINARY_DIR}/textures)
+
 
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
