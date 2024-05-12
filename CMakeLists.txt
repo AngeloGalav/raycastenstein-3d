@@ -8,9 +8,14 @@ file(GLOB_RECURSE SRC_FILES src/*.c*)
 file(GLOB_RECURSE ASSETS res/*)
 file(COPY ${ASSETS} DESTINATION ${CMAKE_BINARY_DIR}/textures)
 
-
 find_package(SDL2 REQUIRED)
 find_package(SDL2_image REQUIRED)
+
+option(NO_TEXTURES "Disables textures" OFF)
+
+if(NO_TEXTURES)
+    add_definitions(-DUSE_TEXTURES=0)
+endif(NO_TEXTURES)
 
 add_executable(raycast-engine ${SRC_FILES})
 target_include_directories(raycast-engine

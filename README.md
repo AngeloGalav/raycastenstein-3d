@@ -36,7 +36,7 @@ cmake .. -G "MinGW Makefiles" && make
 ```
 
 ### Texture-less version
-To compile the version of this project that does not use textures, simply define the flag `-DUSE_TEXTURES=0` when generating the Makefile using CMake.
+To compile the version of this project that does not use textures, simply define the flag `-DNO_TEXTURES=1` when generating the Makefile using CMake.
 
 
 ## How it works
