@@ -16,8 +16,6 @@ void inputHandler(SDL_Event event)
     {
     case SDL_SCANCODE_W:
     case SDL_SCANCODE_UP:
-        printf("frametime %f\n", frameTime);
-
         posX += dirX * moveSpeed;
         posY += dirY * moveSpeed;
         break;

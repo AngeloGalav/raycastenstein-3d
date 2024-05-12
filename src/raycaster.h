@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include <cstdlib>
+#include <cmath>
 #include "map.h"
 #include "definitions.h"
 #include "texture.h"

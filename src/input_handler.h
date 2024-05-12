@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <cmath>
 
 void SetupInputHandler();
 void KeyboardHandler();

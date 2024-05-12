@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <ctime>
+#include <cstdio>
 #include "definitions.h"
 
 void clear(SDL_Renderer * renderer);

@@ -1,6 +1,7 @@
 # raycastenstein-3d
 
 Software renderer that functions in a similar way as the renderer used in Wolfenstein 3D from 1992.
+Compatible with both Linux and Windows.
 
 ## How to play
 
@@ -14,15 +15,29 @@ Software renderer that functions in a similar way as the renderer used in Wolfen
 
 ## Compilation
 
-To compile the project, simply use the provided `CMakeLists.txt`.
-In this way, you can compile the project using these commands:
+#### Linux
 
+To compile the project, simply use the provided `CMakeLists.txt` by typing the following commands:
 ```
 mkdir build
 cd build
 cmake .. && make
 ./raycast-engine
 ```
+
+#### Windows
+
+Provided that you've installed the `SDL2` and `SDL2_image` libraries properly, you can build the executable by using this commands:
+```
+mkdir build
+cd build
+cmake .. -G "MinGW Makefiles" && make
+./raycast-engine
+```
+
+### Texture-less version
+To compile the version of this project that does not use textures, simply define the flag `-DUSE_TEXTURES=0` when generating the Makefile using CMake.
+
 
 ## How it works
 
