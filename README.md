@@ -31,7 +31,7 @@ Provided that you've installed the `SDL2` and `SDL2_image` libraries properly, y
 ```
 mkdir build
 cd build
-cmake .. -G "MinGW Makefiles" && make
+cmake .. -G "MinGW Makefiles"; make -j8
 ./raycast-engine
 ```
 
